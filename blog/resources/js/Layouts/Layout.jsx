@@ -8,7 +8,7 @@ export default function Layout({children}){
                 Home
                 </Link>
                 <Link href="/posts/create" className="nav-link">
-                Create
+                Create Me
                 </Link>
             </nav>
         </header>
