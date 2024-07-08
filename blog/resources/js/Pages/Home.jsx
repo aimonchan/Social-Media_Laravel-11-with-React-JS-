@@ -1,10 +1,9 @@
 
 
 import { Link } from "@inertiajs/react";
-import { useState } from "react";
 
 export default function Home({posts}){
-    console.log(posts)
+    
     
     return(
         <>
@@ -13,15 +12,20 @@ export default function Home({posts}){
                 <li key={i.id} className="p-4 border-b">
                     <div className="text-sm text-slate-600">Posted on: {new Date(i.created_at).toLocaleTimeString()}</div>
                     <p className="font-medium">{i.body}</p>
+
+                    <Link 
+                    href={`/posts/${i.id}`}
+                    className="text-link text-sm">Read more...</Link>
                 </li>
             ))}
         </ul>
 
+
+        {/* Pagination start*/}
         <div className="py-12 px-4">
             {posts.links.map(link=>(
 
                 link.url ?
-
 
                 <Link 
                 key={link.label} 
@@ -39,7 +43,8 @@ export default function Home({posts}){
 
                 </span>
             ))}
-        </div>      
+        </div>
+        {/* Pagination end*/}      
         </>
     );
 }
