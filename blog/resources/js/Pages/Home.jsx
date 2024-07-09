@@ -1,12 +1,33 @@
 
 
-import { Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Home({posts}){
+
+    const {flash} = usePage().props 
+    //Because the flash message is existing in the props
+    //To extract flash message, we need to use usePage()
+
+    const{component}= usePage();
     
+    const[flashMsg, setFlashMsg]= useState(flash.message);
+    setTimeout(()=>{
+        setFlashMsg(null)
+    },2000) //for 2 seconds..
     
     return(
         <>
+        <Head title={component}/>
+
+        {/* Flash Message start */}
+        {flashMsg && <div className="absolute top-24 right-6 bg-rose-500 p-2 rounded-md shadow-lg text-sm text-white">{flashMsg}</div>}
+        {/* Flash Message end */}
+
+        {/* Flash Message start */}
+        {flash.success && <div className="absolute top-24 right-6 bg-green-500 p-2 rounded-md shadow-lg text-sm text-white">{flash.success}</div>}
+        {/* Flash Message end */}
+
         <ul>
             {posts.data.map(i=>(
                 <li key={i.id} className="p-4 border-b">

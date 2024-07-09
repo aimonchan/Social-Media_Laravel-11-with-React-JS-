@@ -1,19 +1,18 @@
-import { useForm } from "@inertiajs/react";
-export default function Create(){
-    const {data,setData,post,errors,processing}=useForm({
-        body:"",
+import { Head, useForm } from "@inertiajs/react";
+export default function Edit({post}){
+    const {data,setData,put,errors,processing}=useForm({
+        body:post.body,
     });
 
     function submit(e){
         e.preventDefault();
-        post("/posts");
+        put(`/posts/${post.id}`);
     }
-    
-
 
     return(
         <>
-        <h1 className="title">Create a New Post</h1>
+        <Head title="Edit"/>
+        <h1 className="title">Update Your Post</h1>
         
         <form 
         onSubmit={submit}
@@ -31,7 +30,7 @@ export default function Create(){
             {errors.body && <p className="error my-2">{errors.body}</p>}
             {/* To show error from Laravel Backend end */}
 
-            <button disabled={processing} type="submit" className="primary-btn">Add Post</button>
+            <button disabled={processing} type="submit" className="primary-btn">Update Post</button>
         </form>
         </>
     );

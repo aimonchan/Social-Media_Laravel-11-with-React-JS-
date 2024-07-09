@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         sleep(1);
         $fields= $request->validate([
-            'body'=>['required','min:10']
+            'body'=>'required|min:10'
         ]);
         Post::create($fields);
         return redirect('/');
@@ -56,6 +56,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        return inertia('Edit',[
+            'post'=>$post
+        ]);
     }
 
     /**
@@ -63,7 +66,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $fields=$request->validate([
+            'body'=>['required']
+        ]);
+        $post->update($fields);
+        return redirect('/')->with('success','Article is updated!');
+        // dd($post);
+        // to Check whether backend can read the action or not
     }
 
     /**
@@ -71,6 +80,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('/')->with('message','Article is deleted!');
+        // dd($post);
+        // to Check whether backend can read the action or not
     }
 }
